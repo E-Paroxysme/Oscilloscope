@@ -1,0 +1,24 @@
+// Définition des paramètres
+float amplitude = 100.0;  // Amplitude de la sinusoïde
+float frequency = 0.1;    // Fréquence de la sinusoïde (ajuster pour changer la vitesse de variation)
+unsigned long previousMillis = 0; // Stocke le temps précédent
+long interval = 1;        // Intervalle très court (1 milliseconde, 1000 valeurs par seconde)
+
+void setup() {
+  Serial.begin(115200);  // Initialisation de la communication série avec un baud rate plus élevé
+}
+
+void loop() {
+  unsigned long currentMillis = millis(); // Récupère le temps actuel
+
+  // Vérifie si l'intervalle est écoulé (très court)
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;  // Réinitialiser le temps précédent
+
+    // Calculer la valeur sinusoïdale
+    float value = amplitude * sin(frequency * currentMillis);
+
+    // Envoyer la valeur sinusoïdale sur la sortie série
+    Serial.println(value);
+  }
+}
